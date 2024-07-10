@@ -27,5 +27,13 @@ jobs:
     - name: Test
       run: go test -v ./...
 
-    - name: Run
-      run: go run -v ./...
+    - name: Run Compiled
+      run: |
+        for file in ./*; do
+          if [[ -x "$file" && ! -d "$file" ]]; then
+            ./"$file"
+          fi
+        done
+
+    - name: Run With Go
+      run: go run ./...
