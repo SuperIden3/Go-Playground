@@ -31,7 +31,9 @@ jobs:
       run: |
         for file in ./*; do
           if [[ -x "$file" && ! -d "$file" ]]; then
-            ./"$file"
+            if file "$file" | grep -q "executable"; then
+              ./"$file"
+            fi
           fi
         done
 
