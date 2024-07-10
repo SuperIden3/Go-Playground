@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  build:
+  main:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -26,3 +26,16 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+    - name: Run Compiled
+      run: |
+        for file in ./*; do
+          if [[ -x "$file" && ! -d "$file" ]]; then
+            if file "$file" | grep -q "executable"; then
+              ./"$file"
+            fi
+          fi
+        done
+
+    - name: Run With Go
+      run: go run ./...
