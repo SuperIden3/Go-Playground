@@ -1,18 +1,18 @@
 GO = go
-GOFLAGS = -ldflags="-s -w"
+GOFLAGS = -ldflags=""
 SOURCES = *.go
 BINARY = main
 
-.PHONY: all build time clean run
+.PHONY: debug run clean
 
 $(BINARY): $(SOURCES)
 	$(GO) build $(GOFLAGS) $(BINARY)
 
-run: $(BINARY)
-	./$(BINARY)
+debug: $(BINARY)
+	dlv exec --check-go-version=false ./$(BINARY);
 
-time: $(BINARY)
-	time ./$(BINARY)
+run: $(BINARY)
+	./$(BINARY); \
 
 clean:
 	rm -f $(BINARY)

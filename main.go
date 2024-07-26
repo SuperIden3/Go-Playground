@@ -22,12 +22,7 @@ func ask(question string) (string, error) {
 }
 
 func main() {
-  var i int;
-  for {
-    if i >= 100 {
-      break;
-    }
+  for i := 1; i < 10; i += 1 {
     fmt.Println(i);
-    i += 1;
   }
 }
