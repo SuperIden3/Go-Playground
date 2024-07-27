@@ -6,23 +6,33 @@ import (
   "os"
   "strings"
   "bufio"
+//  "log"
 );
 
 func ask(question string) (string, error) {
-  var input string;
-  var err error;
-  reader := bufio.NewReader(os.Stdin);
-  fmt.Print(question);
-  input, err = reader.ReadString('\n');
+  reader := bufio.NewReader(os.Stdin)
+  fmt.Print(question)
+  os.Stdout.Sync()
+  input, err := reader.ReadString('\n')
   if err != nil {
-    return "", err;
+    return "", err
   }
-  input = strings.TrimSuffix(input, "\n");
-  return input, nil;
+  input = strings.TrimSuffix(input, "\n")
+  return input, nil
+}
+
+func toBytes(str string) []byte {
+    byteArr := make([]byte, 0, len(str))
+    for _, r := range str {
+        byteArr = append(byteArr, byte(r))
+    }
+    return byteArr
 }
 
 func main() {
-  for i := 1; i < 10; i += 1 {
-    fmt.Println(i);
+  input, _ := ask("Type something: ")
+  var arr []byte = toBytes(input)
+  for i := 0; i < len(arr); i++ {
+    fmt.Printf("\"%c\" = %d\n", input[i], arr[i]);
   }
 }
