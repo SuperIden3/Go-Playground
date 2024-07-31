@@ -7,18 +7,19 @@ import (
   "strings"
   "bufio"
 //  "log"
+  "strconv"
 );
 
-func ask(question string) (string, error) {
+func ask(question string) string {
   reader := bufio.NewReader(os.Stdin)
   fmt.Print(question)
   os.Stdout.Sync()
   input, err := reader.ReadString('\n')
   if err != nil {
-    return "", err
+    panic(err)
   }
   input = strings.TrimSuffix(input, "\n")
-  return input, nil
+  return input
 }
 
 func toBytes(str string) []byte {
@@ -30,9 +31,6 @@ func toBytes(str string) []byte {
 }
 
 func main() {
-  input, _ := ask("Type something: ")
-  var arr []byte = toBytes(input)
-  for i := 0; i < len(arr); i++ {
-    fmt.Printf("\"%c\" = %d\n", input[i], arr[i]);
-  }
+  num, _ := strconv.ParseUint(ask("Put a positive number: "), 10, 8)
+  fmt.Printf("Your number is %d!\n", num);
 }
